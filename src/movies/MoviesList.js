@@ -9,7 +9,7 @@ const API_IMAGES_URL = `https://api.themoviedb.org/3/configuration?api_key=${API
 export function MoviesList() {
     const [filter, setFilter] = useState('');
     const [movies, setMovies] = useState([]);
-    const [movieImages, setMovieImages] = useState({});
+    const [config, setConfig] = useState({});
 
     // Get movie list from api
     const getMovies = async () => {
@@ -28,7 +28,7 @@ export function MoviesList() {
         try {
             const res = await fetch(API_IMAGES_URL);
             const images = await res.json();
-            setMovieImages(images);
+            setConfig(images);
             console.log(images);
         } catch (e) {
             console.error(e);
@@ -48,7 +48,7 @@ export function MoviesList() {
                 {movies
                     .filter((movie) => movie.title.toLowerCase().includes(filter.toLowerCase()))
                     .map((movie) => (
-                        <Movie key={movie.id} movie={movie} movieImages={movieImages} />
+                        <Movie key={movie.id} movie={movie} config={config} />
                     ))}
             </ul>
         </div>
